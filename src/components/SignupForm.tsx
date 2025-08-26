@@ -2,8 +2,16 @@
 
 import React, { useState } from "react";
 import AuthService from "../service/auth.service";
+import Loader from "./Loader";
+import Alert from "./Alert";
 
 const SignupForm: React.FC = () => {
+  const [processing, setProcessing] = useState<boolean>(false);
+  const [alertState, setAlertState] = useState({
+    show: false,
+    color: "green",
+    msg: "",
+  });
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -12,16 +20,28 @@ const SignupForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setProcessing(true);
+
     // Handle form submission
     AuthService.signup({ firstName, lastName, username, email, password })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         // Show success message
-        alert("Signup successful! Please check your email for verification.");
+        setProcessing(false);
+        setAlertState({
+          show: true,
+          color: "green",
+          msg: res.data.message,
+        });
       })
       .catch((error) => {
         console.error(error);
-        alert("Signup failed!");
+        setProcessing(false);
+        setAlertState({
+          show: true,
+          color: "red",
+          msg: error.response.data || "Failed to create the account",
+        });
       });
     // Reset form fields
     setFirstName("");
@@ -33,6 +53,11 @@ const SignupForm: React.FC = () => {
 
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+      <div className="flex justify-center">
+        {alertState.show ? (
+          <Alert color={alertState.color} msg={alertState.msg} />
+        ) : null}
+      </div>
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
           <label htmlFor="firstName" className="sr-only">
@@ -138,6 +163,9 @@ const SignupForm: React.FC = () => {
           </span>
           Sign up
         </button>
+      </div>
+      <div className="flex justify-center">
+        {processing ? <Loader /> : null}
       </div>
     </form>
   );

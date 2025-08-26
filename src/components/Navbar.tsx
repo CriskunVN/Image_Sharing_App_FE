@@ -6,24 +6,35 @@ import { Link } from "react-router-dom";
 
 // import logo from "../assets/logo.png";
 import { Context } from "../context";
+import type { Action } from "../context";
 
 type ActionsProps = {
   auth: boolean;
   customStyle: string;
+  dispatch: React.Dispatch<Action>;
 };
 
 type NavbarProps = {
   auth: boolean;
 };
 
-const Actions: React.FC<ActionsProps> = ({ auth, customStyle }) => {
+const Actions: React.FC<ActionsProps> = ({ auth, customStyle, dispatch }) => {
   customStyle =
     customStyle ||
     "bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow transition duration-150";
   return (
     <>
       {auth ? (
-        <button type="button" className={customStyle}>
+        <button
+          type="button"
+          className={customStyle}
+          onClick={() => {
+            localStorage.removeItem("educativeUser");
+            dispatch({
+              type: "LOGOUT",
+            });
+          }}
+        >
           Logout
         </button>
       ) : (
@@ -42,7 +53,7 @@ const Actions: React.FC<ActionsProps> = ({ auth, customStyle }) => {
 };
 
 const Navbar: React.FC<NavbarProps> = ({ auth }) => {
-  const { state } = useContext(Context);
+  const { state, dispatch } = useContext(Context);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div>
@@ -68,6 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({ auth }) => {
               <Actions
                 auth={state.auth}
                 customStyle="hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                dispatch={dispatch}
               />
             </div>
             <div className="-mr-2 flex md:hidden">
@@ -137,6 +149,7 @@ const Navbar: React.FC<NavbarProps> = ({ auth }) => {
               <Actions
                 auth={state.auth}
                 customStyle="hover:bg-gray-700 text-white block px-3 py-2 rounded-md text-base font-medium"
+                dispatch={dispatch}
               />
             </div>
           </div>

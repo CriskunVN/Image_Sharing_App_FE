@@ -1,4 +1,5 @@
-import React, { createContext, useReducer, Dispatch } from "react";
+import React, { createContext, useReducer } from "react";
+import type { Dispatch } from "react";
 
 // Định nghĩa kiểu dữ liệu cho user
 export interface UserType {
@@ -19,7 +20,7 @@ type State = {
 };
 
 // Định nghĩa kiểu cho action
-type Action =
+export type Action =
   | { type: "LOGIN"; payload: { user: UserType; token: string } }
   | { type: "LOGOUT" };
 
