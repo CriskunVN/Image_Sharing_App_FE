@@ -1,7 +1,7 @@
 import React, { type JSX } from "react";
 import LoginForm from "../components/LoginForm";
 import logo from "../assets/logo.png";
-
+import Loader from "../components/Loader";
 const Login: React.FC = () => {
   return (
     <>

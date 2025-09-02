@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Confirmation from "./pages/Confirmation";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-
+import Upload from "./pages/Upload";
 type Props = {
   children: React.ReactNode;
 };
@@ -28,7 +28,7 @@ const App = () => {
   const { dispatch } = useContext(Context);
 
   useEffect(() => {
-    const userStr = localStorage.getItem("educativeUser");
+    const userStr = localStorage.getItem("user");
     if (!userStr) return;
     try {
       const user = JSON.parse(userStr);
@@ -80,6 +80,14 @@ const App = () => {
             <OnlyNotAuth>
               <Login />
             </OnlyNotAuth>
+          }
+        />
+        <Route
+          path="/upload"
+          element={
+            <RequireAuth>
+              <Upload />
+            </RequireAuth>
           }
         />
       </Routes>

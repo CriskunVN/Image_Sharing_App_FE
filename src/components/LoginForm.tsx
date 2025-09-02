@@ -4,20 +4,22 @@ import React, { useState, useContext } from "react";
 
 import AuthService from "../service/auth.service";
 import { Context } from "../context";
-
+import Loader from "./Loader";
 const LoginForm: React.FC = () => {
   const [emailOrUsername, setEmailOrUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const { dispatch } = useContext(Context);
+  const [processing, setProcessing] = React.useState<Boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setProcessing(true);
     AuthService.login({ emailOrUsername, password })
       .then((res) => {
         console.log(res);
         localStorage.setItem("educativeUser", JSON.stringify(res));
         console.log(res.token);
+        setProcessing(false);
         dispatch({
           type: "LOGIN",
           payload: {
@@ -28,6 +30,7 @@ const LoginForm: React.FC = () => {
       })
       .catch((err) => {
         console.error(err);
+        setProcessing(false);
       });
   };
 
@@ -90,6 +93,9 @@ const LoginForm: React.FC = () => {
           </span>
           Login
         </button>
+      </div>
+      <div className="flex justify-center mt-10">
+        {processing ? <Loader /> : null}
       </div>
     </form>
   );

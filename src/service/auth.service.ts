@@ -32,7 +32,7 @@ const login = (data: LoginData): Promise<any> => {
     /**
      * If successfully logged in, store the user data, inlucding the token, in the localStorage
      */
-    localStorage.setItem("user", JSON.stringify(res.data));
+    localStorage.setItem("user", JSON.stringify(res));
     return res.data;
   });
 };
