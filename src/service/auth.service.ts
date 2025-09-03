@@ -28,13 +28,7 @@ const signup = (data: SignupData): Promise<any> => {
  * The data needed for each user is the username or email along with the password
  */
 const login = (data: LoginData): Promise<any> => {
-  return axios.post(`${API_URL}/login/`, data).then((res) => {
-    /**
-     * If successfully logged in, store the user data, inlucding the token, in the localStorage
-     */
-    localStorage.setItem("user", JSON.stringify(res));
-    return res.data;
-  });
+  return axios.post(`${API_URL}/login/`, data);
 };
 
 const logout = (): void => {

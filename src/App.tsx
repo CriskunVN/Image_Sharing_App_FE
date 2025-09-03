@@ -24,9 +24,8 @@ const OnlyNotAuth = ({ children }: Props) => {
 };
 
 const App = () => {
-  localStorage.clear();
-  const { dispatch } = useContext(Context);
-
+  const { dispatch, state } = useContext(Context);
+  console.log("state.auth ", state.auth);
   useEffect(() => {
     const userStr = localStorage.getItem("user");
     if (!userStr) return;
@@ -48,7 +47,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Navbar auth={false} />
+      <Navbar auth={state.auth} />
       <Routes>
         <Route
           path="/"

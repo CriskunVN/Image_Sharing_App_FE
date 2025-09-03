@@ -16,15 +16,14 @@ const LoginForm: React.FC = () => {
     setProcessing(true);
     AuthService.login({ emailOrUsername, password })
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("educativeUser", JSON.stringify(res));
-        console.log(res.token);
+        localStorage.setItem("user", JSON.stringify(res.data));
         setProcessing(false);
+        console.log("token :", res.data.token);
         dispatch({
           type: "LOGIN",
           payload: {
-            user: res,
-            token: res.token,
+            user: res.data.user,
+            token: res.data.token,
           },
         });
       })

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserService from "../service/user.service";
 import type { AxiosResponse, AxiosRequestConfig } from "axios";
 import Alert from "../components/Alert";
@@ -14,6 +14,8 @@ const Upload: React.FC = () => {
     msg: "",
   });
   const [processing, setProcessing] = useState(false);
+
+  console.log("Page upload");
 
   const handleUpload = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

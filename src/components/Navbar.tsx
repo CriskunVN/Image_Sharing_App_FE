@@ -29,7 +29,7 @@ const Actions: React.FC<ActionsProps> = ({ auth, customStyle, dispatch }) => {
           type="button"
           className={customStyle}
           onClick={() => {
-            localStorage.removeItem("educativeUser");
+            localStorage.removeItem("user");
             dispatch({
               type: "LOGOUT",
             });
@@ -52,7 +52,7 @@ const Actions: React.FC<ActionsProps> = ({ auth, customStyle, dispatch }) => {
   );
 };
 
-const Navbar: React.FC<NavbarProps> = ({ auth }) => {
+const Navbar: React.FC<NavbarProps> = ({}) => {
   const { state, dispatch } = useContext(Context);
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -71,6 +71,12 @@ const Navbar: React.FC<NavbarProps> = ({ auth }) => {
                     className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
                     Home
+                  </Link>
+                  <Link
+                    to="/upload"
+                    className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Upload File
                   </Link>
                 </div>
               </div>
