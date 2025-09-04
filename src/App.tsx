@@ -8,6 +8,7 @@ import Signup from "./pages/Signup";
 import Confirmation from "./pages/Confirmation";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import View from "./pages/View";
 import Upload from "./pages/Upload";
 type Props = {
   children: React.ReactNode;
@@ -48,6 +49,7 @@ const App = () => {
   return (
     <>
       <Navbar auth={state.auth} />
+      {/* Routing here */}
       <Routes>
         <Route
           path="/"
@@ -86,6 +88,14 @@ const App = () => {
           element={
             <RequireAuth>
               <Upload />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/view"
+          element={
+            <RequireAuth>
+              <View />
             </RequireAuth>
           }
         />

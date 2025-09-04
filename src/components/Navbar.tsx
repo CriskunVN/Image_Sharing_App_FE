@@ -78,6 +78,12 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
                   >
                     Upload File
                   </Link>
+                  <Link
+                    to="/view"
+                    className=" hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    View Files
+                  </Link>
                 </div>
               </div>
             </div>
