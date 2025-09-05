@@ -1,9 +1,6 @@
 import React from "react";
 
-type AlertProps = {
-  color: string;
-  msg: string;
-};
+import type { AlertProps } from "../utils/type.until";
 
 const Alert: React.FC<AlertProps> = ({ color, msg }) => {
   const colorClass =

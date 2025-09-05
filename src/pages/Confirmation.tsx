@@ -52,7 +52,11 @@ const Confirmation = () => {
         <div className="m-auto">
           {processing ? <Loader /> : null}
           {alertState.show ? (
-            <Alert color={alertState.color} msg={alertState.msg} />
+            <Alert
+              color={alertState.color}
+              msg={alertState.msg}
+              show={alertState.show}
+            />
           ) : null}
         </div>
       </div>

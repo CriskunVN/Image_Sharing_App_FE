@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import UserService from "../service/user.service";
 import Loader from "../components/Loader";
+import type { FileType } from "../utils/type.until";
 
 const View: React.FC = () => {
-  const [files, setFiles] = useState<
-    Array<{ filePath: string; name: string; description: string }>
-  >([]);
+  const [files, setFiles] = useState<Array<FileType>>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const fetchFiles = () => {
     UserService.getFiles()
@@ -34,7 +33,9 @@ const View: React.FC = () => {
       </div>
       <div className="grid grid-cols-4 gap-4 m-10 grid">
         {files.map((file) => {
-          return <Card file={file} key={file.filePath} />;
+          return (
+            <Card file={file} key={file.filePath} fetchFiles={fetchFiles} />
+          );
         })}
       </div>
       <div className="flex justify-center">{loading && <Loader />}</div>
