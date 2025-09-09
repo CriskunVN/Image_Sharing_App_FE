@@ -23,10 +23,15 @@ const updateFile = (file: FileType): Promise<FileType> => {
   );
 };
 
+const deleteFile = (fileId: string): Promise<any> => {
+  return axios.delete(`${API_URL}/file/${fileId}`, { headers: authHeader() });
+};
+
 const UserService = {
   upload,
   getFiles,
   updateFile,
+  deleteFile,
 };
 
 export default UserService;

@@ -109,7 +109,11 @@ const Upload: React.FC = () => {
         />
         <div className="flex justify-center mt-10">
           {alertState.show ? (
-            <Alert color={alertState.color} msg={alertState.msg} />
+            <Alert
+              color={alertState.color}
+              msg={alertState.msg}
+              show={alertState.show}
+            />
           ) : null}
         </div>
         <div className="flex justify-center mt-10">

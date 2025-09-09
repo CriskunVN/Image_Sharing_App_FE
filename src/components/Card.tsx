@@ -5,9 +5,22 @@ interface FileProps {
   fetchFiles: () => void;
 }
 import UpdateForm from "./UpdateForm";
+import UserService from "../service/user.service";
 
 const Card: React.FC<FileProps> = ({ file, fetchFiles }) => {
   const [openUpdate, setOpenUpdate] = useState<boolean>(false);
+
+  const handleDelete = (): void => {
+    UserService.deleteFile(file._id)
+      .then((res) => {
+        console.log(res);
+        fetchFiles();
+      })
+      .catch((err) => {
+        console.error("Failed to delete file:", err.message);
+      });
+  };
+
   return (
     <>
       <UpdateForm
@@ -30,7 +43,16 @@ const Card: React.FC<FileProps> = ({ file, fetchFiles }) => {
           <div className="font-bold text-xl mb-2">{file.name}</div>
           <p className="text-gray-700 text-base">{file.description}</p>
         </div>
-        <div className="inline-flex px-6 pb-3">
+        <div className="flex flex-row px-6 pb-3">
+          <a
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l"
+            href={file.filePath}
+            download={file.name}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Download
+          </a>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
             onClick={() => {
@@ -38,6 +60,12 @@ const Card: React.FC<FileProps> = ({ file, fetchFiles }) => {
             }}
           >
             Edit
+          </button>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r"
+            onClick={handleDelete}
+          >
+            Delete
           </button>
         </div>
       </div>
